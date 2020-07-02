@@ -2,6 +2,17 @@
 {% load static %}
 {% block content %}
 
-<h2>Store</h2>
+<div class="row">
+    {% for product in products %}
+    <div class="col-lg-4">
+        <img class="thumbnail" src="{{ product.image.url}}" alt="">
+        <div class="box-element product">
+            <h2><strong>{{ product.name }}</strong></h2><hr>
+            <button style="float:right"; class="btn btn-outline-secondary addd-btn">Add to Cart</button>
+            <h4>{{ product.price|floatformat:2 }}</h4>
+        </div>
+    </div>
+    {% endfor %}     
+</div>
 
 {% endblock content %}
