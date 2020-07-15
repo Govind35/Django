@@ -5,7 +5,9 @@
 <div class="row">
     {% for product in products %}
     <div class="col-lg-4">
-        <img class="thumbnail" src="{{ product.image.url}}" alt="">
+        {% if produnct.image %}
+        <img class="thumbnail" src="{{product.image.url}}" alt=""> 
+        {% endif %}
         <div class="box-element product">
             <h2><strong>{{ product.name }}</strong></h2><hr>
             <button style="float:right"; class="btn btn-outline-secondary addd-btn">Add to Cart</button>
