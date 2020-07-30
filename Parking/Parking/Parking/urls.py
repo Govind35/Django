@@ -21,5 +21,5 @@ from slot import views
 urlpatterns = [
     path('admin/', admin.site.urls),    
     path('add/<car_no>/', views.slotList.as_view()),    
-    #path('add/<slot_no>/', views.freeSlot.as_view()),    
+    path('remove/<slot_no>/', views.freeSlot.as_view()),    
 ]

@@ -41,12 +41,17 @@ class slotList(APIView):
 
 
 
-#class freeSlot(APIView):
-#    def post(self, request, slot_no):
-#        
-#        try:
-#            
-#            serialiser = slotseri(slot_no.slot)
-#            return Response(slot_no.slot)   
-#        except Exception :
-#            return Response("Parking is full")
+class freeSlot(APIView):
+    def post(self, request, slot_no):
+        
+        try:
+            found = Parking.objects.filter(slot=slot_no).first()
+            print("1")
+            found.car='NA'
+            print("2")
+            found.save()
+            print("3")
+            return Response({'Message':'Car is removed'},status=status.HTTP_200_OK)   
+        except Exception :
+            return Response({'Message':'Car is not parked'},status=status.HTTP_404_NOT_FOUND)
+
