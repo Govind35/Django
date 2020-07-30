@@ -5,5 +5,5 @@ class slotseri(serializers.ModelSerializer):
 
     class Meta:
         model = Parking
-        fields = ('slot')    #'__all__' 
+        fields = '__all__' 
         

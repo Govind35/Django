@@ -12,18 +12,41 @@ from . serializers import slotseri
 
 class slotList(APIView):
     def post(self, request, car_no):
-        
         try:
-            free = Parking.objects.filter(car='NA').first()
-            if(free):
-                free.car = car_no
-                free.save()
-                return Response(free.slot)
+            if(Parking.objects.all().count() <= 10):
+                freeSpace = Parking.objects.filter(car='NA').first()
+                if(free):
+                    freeSpace.car = car_no
+                    freeSpace.save()
+                    serialiser = slotseri(freeSpace)
+                    return Response({'slot' : serialiser.data['slot']},status=status.HTTP_200_OK)
+                else:
+                    addNew = Parking(car=car_no) 
+                    addNew.save()
+                    serialiser = slotseri(addNew)
+                    return Response({'slot' : serialiser.data['slot']},status=status.HTTP_200_OK)
             else:
-                add = Parking(car=car_no) 
-                add.save()
-                #serialiser = slotseri(add)
-                return Response(add.slot)
-        except Exception:
-            return Response("Parking is full")
+                freeSpace = Parking.objects.filter(car='NA').first()
+                if(freeSpace):
+                    freeSpace.car = car_no
+                    freeSpace.save()
+                    serialiser = slotseri(freeSpace)
+                    return Response({'slot' : serialiser.data['slot']},status=status.HTTP_200_OK)
 
+                else:
+                    return Response({'Error':'PARKING IS FULL'},status=status.HTTP_404_NOT_FOUND)
+        except Exception:
+            return Response({'Error':'PARKING IS FULL'},status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+#class freeSlot(APIView):
+#    def post(self, request, slot_no):
+#        
+#        try:
+#            
+#            serialiser = slotseri(slot_no.slot)
+#            return Response(slot_no.slot)   
+#        except Exception :
+#            return Response("Parking is full")
