@@ -8,23 +8,23 @@ from rest_framework import status
 from . models import Parking
 from . serializers import slotseri
 
-# Create your views here.
 
+# Park the car 
 class slotList(APIView):
     def post(self, request, car_no):
         try:
-            if(Parking.objects.all().count() <= 10):
+            if(Parking.objects.all().count() <= 50):
                 freeSpace = Parking.objects.filter(car='NA').first()
-                if(free):
+                if(freeSpace):
                     freeSpace.car = car_no
                     freeSpace.save()
                     serialiser = slotseri(freeSpace)
-                    return Response({'slot' : serialiser.data['slot']},status=status.HTTP_200_OK)
                 else:
                     addNew = Parking(car=car_no) 
                     addNew.save()
                     serialiser = slotseri(addNew)
-                    return Response({'slot' : serialiser.data['slot']},status=status.HTTP_200_OK)
+                return Response({'slot' : serialiser.data['slot']},status=status.HTTP_200_OK)
+            
             else:
                 freeSpace = Parking.objects.filter(car='NA').first()
                 if(freeSpace):
@@ -34,24 +34,42 @@ class slotList(APIView):
                     return Response({'slot' : serialiser.data['slot']},status=status.HTTP_200_OK)
 
                 else:
-                    return Response({'Error':'PARKING IS FULL'},status=status.HTTP_404_NOT_FOUND)
+                    return Response({'Error':'PARKING IS FULL 1'},status=status.HTTP_404_NOT_FOUND)
+        
         except Exception:
-            return Response({'Error':'PARKING IS FULL'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'Error':'PARKING IS FULL 2'},status=status.HTTP_404_NOT_FOUND)
 
 
 
-
+# Remove Car
 class freeSlot(APIView):
     def post(self, request, slot_no):
-        
         try:
             found = Parking.objects.filter(slot=slot_no).first()
-            print("1")
             found.car='NA'
-            print("2")
             found.save()
-            print("3")
             return Response({'Message':'Car is removed'},status=status.HTTP_200_OK)   
+        
         except Exception :
-            return Response({'Message':'Car is not parked'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'Message':'Car is not parked/Invalid slot number'},status=status.HTTP_404_NOT_FOUND)
 
+
+# Check the Car/Slot Details 
+class check(APIView):
+    def get(self, request,id_no):
+        try:
+            if(Parking.objects.filter(car=id_no)):
+                carFound = Parking.objects.filter(car=id_no)
+                serialiser = slotseri(carFound,many=True)
+            
+            elif(Parking.objects.filter(slot=id_no)):
+                slotFound = Parking.objects.filter(slot=id_no)
+                serialiser = slotseri(slotFound,many=True)
+            
+            else:
+                return Response({'Message':'Invalid Credentials'},status=status.HTTP_404_NOT_FOUND)
+
+            return Response(serialiser.data,status=status.HTTP_200_OK)
+        
+        except Exception :
+            return Response({'Message':'Invalid Credentials'},status=status.HTTP_404_NOT_FOUND)

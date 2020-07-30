@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),    
     path('add/<car_no>/', views.slotList.as_view()),    
     path('remove/<slot_no>/', views.freeSlot.as_view()),    
+    path('find/<id_no>/', views.check.as_view()),    
 ]
