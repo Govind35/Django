@@ -8,40 +8,40 @@
 
 ### step 1
 goto file loaction
-'''javascript
+```javascript
 file loaction/manage.py makemigrations
-'''
+```
 
 ### step 2
-'''javascript
+```javascript
 file loaction/manage.py migrate
-'''
+```
 
 ### step 3
-'''javascript
+```javascript
 file loaction/manage.py runserver
-'''
+```
 
 ## Checking API's
 
 ### Park Car
-'''javascript
+```javascript
 localhost/add/..car_number
-'''
+```
 #### input: car number
 
 
 ### remove Car
-'''javascript
+```javascript
 localhost/remove/..slot_number
-'''
+```
 #### input: slot number
 
 
 ### checking details car/
-'''javascript
+```javascript
 localhost/find/..id
-'''
+```
 #### input: slot/car number
 
 
