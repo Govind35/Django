@@ -1,10 +1,10 @@
 ## How To Run
 ### Requirments/Installation
 
--Python
--IDE(VS Code)
--pip
--Django
+- Python
+- IDE(VS Code)
+- pip
+- Django
 
 ### step 1
 goto file loaction
@@ -28,20 +28,20 @@ file loaction/manage.py runserver
 ```javascript
 localhost/add/..car_number
 ```
-#### input: car number
+#### input- car number
 
 
 ### remove Car
 ```javascript
 localhost/remove/..slot_number
 ```
-#### input: slot number
+#### input- slot number
 
 
 ### checking details car/
 ```javascript
 localhost/find/..id
 ```
-#### input: slot/car number
+#### input- slot/car number
 
 
