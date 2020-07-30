@@ -12,5 +12,24 @@ from . serializers import employeeseri
 # Create your views here.
 
 
+class employeeList(APIView):
+
+    def get(self,request):
+        if(request.method == "GET"):
+            #employee1 = Parking(car='NA')
+            #mployee1.save()
+
+            employee2 = Parking.objects.get(car='NA')
+            #employee1.car = 'MH123456'
+            serialiser = employeeseri(employee2, many=True)
+            return Response()
+        else:
+            return Response("NO RESPONSE")     
+    
+    def post(self, request):
+
+        print("POST")
+        return Response("POST")     
+
         
 

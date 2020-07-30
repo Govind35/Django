@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from slot import views
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),    
+    path('add/<car_no>/', views.slotList.as_view()),    
+    path('add/<slot_no>/', views.freeSlot.as_view()),    
 ]
