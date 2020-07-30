@@ -6,5 +6,5 @@ class employeeseri(serializers.ModelSerializer):
     class Meta:
         model = Parking
 #        fields = ('firstname','lastname')   for specific value to return
-        fields = '__all__' 
+        fields = ('slot')    #'__all__' 
         
